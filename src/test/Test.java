@@ -3,15 +3,17 @@ package test;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
 import dao.StudentDao;
-import dao.impl.StudentDaoImpl;
 import domain.Student;
+import utils.MyBatisUtils;
 
 public class Test {
 
 	public static void main(String[] args) {
-		
-		StudentDao studentDao=new StudentDaoImpl();
+		SqlSession sqlSession=MyBatisUtils.getSqlSession();
+		StudentDao studentDao=sqlSession.getMapper(dao.StudentDao.class);
 		
 		/*
 		//插入
@@ -41,7 +43,11 @@ public class Test {
 		List<Student> studentList=new ArrayList<Student>();
 		studentList = studentDao.selectStudentByName("张");
 		System.out.println(studentList);
-		System.out.println("success");
+		sqlSession.commit();
+		System.out.println("success mapper dynamic proxy");
+		if (sqlSession!=null) {
+			sqlSession.close();
+		}
 	}
 
 }

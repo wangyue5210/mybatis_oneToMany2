@@ -2,31 +2,31 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="aaa">
+<mapper namespace="dao.StudentDao">
 
 <!-- id属性用来指定sql语句的id，id具有唯一性，代表了这条sql语句 -->
 <!--parameterType用来专门给sql语句传值，用来指定传的这个值的数据类型  -->
 <!-- resultType用来指定查询结果集即将封装的对象类型，提供类的全限定名称 -->
-  <select id="getByNo" parameterType="java.lang.String" resultType="domain.Student" >
+  <select id="selectStudentById" parameterType="java.lang.String" resultType="domain.Student" >
    select * from tbl_student where id = #{id}
   </select>
   
-  <select id="getAll" resultType="domain.Student">
+  <select id="selectAllStudents" resultType="domain.Student">
   select * from tbl_student
   </select>
   
-  <delete id="deleteByNo">
+  <delete id="deleteStudentById">
   delete from tbl_student where id =#{id}
   </delete>
   <!--parameterType 简单类型可以省略 #{}多个的时候，不能随意编写 -->
-  <insert id="save" parameterType="domain.Student">
+  <insert id="insertStudent" parameterType="domain.Student">
   	insert into tbl_student 
   		(id,name,age)
   	values
   		(#{id},#{name},#{age})
   </insert>
   
-  <update id="update" parameterType="domain.Student">
+  <update id="updateStudent" parameterType="domain.Student">
   	update tbl_student
   		set name=#{name},age=#{age}
   		where id=#{id}
